@@ -1,5 +1,6 @@
 import React from 'react'
 import Book from './Book'
+import Bookshelf from './Bookshelf'
 // import * as BooksAPI from './BooksAPI'
 import './App.css'
 
@@ -85,38 +86,9 @@ class BooksApp extends React.Component {
               <h1>MyReads</h1>
             </div>
             <div className="list-books-content">
-              <div>
-                <div className="bookshelf">
-                  <h2 className="bookshelf-title">Currently Reading</h2>
-                  <div className="bookshelf-books">
-                    <ol className="books-grid">
-                      {this.state.currentlyReading.map((book) => (
-                        <Book book={book} />
-                      ))}
-                    </ol>
-                  </div>
-                </div>
-                <div className="bookshelf">
-                  <h2 className="bookshelf-title">Want to Read</h2>
-                  <div className="bookshelf-books">
-                    <ol className="books-grid">
-                      {this.state.wantToRead.map((book) => (
-                        <Book book={book} />
-                      ))}
-                    </ol>
-                  </div>
-                </div>
-                <div className="bookshelf">
-                  <h2 className="bookshelf-title">Read</h2>
-                  <div className="bookshelf-books">
-                    <ol className="books-grid">
-                      {this.state.read.map((book) => (
-                        <Book book={book} />
-                      ))}
-                    </ol>
-                  </div>
-                </div>
-              </div>
+              <Bookshelf title="Currently Reading" books={this.state.currentlyReading} />
+              <Bookshelf title="Want to Read" books={this.state.wantToRead} />
+              <Bookshelf title="Read" books={this.state.read} />
             </div>
             <div className="open-search">
               <a onClick={() => this.setState({ showSearchPage: true })}>Add a book</a>
