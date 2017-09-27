@@ -13,9 +13,10 @@ class BooksApp extends React.Component {
      * pages, as well as provide a good URL they can bookmark and share.
      */
     showSearchPage: false,
-    currentlyReading: [],
-    wantToRead: [],
-    read: [],
+    currentlyReading: {},
+    wantToRead: {},
+    read: {},
+    allBooks: [],
     searchQuery: '',
     searchResults: []
   }
@@ -31,7 +32,54 @@ class BooksApp extends React.Component {
     }
   }
 
+  // get the shelf ID (or 0 if not on any) for this book
+  getShelf = (book) => {
+    if (this.state.currentlyReading[book.id]) {
+      return "currentlyReading"
+    } else if (this.state.wantToRead[book.id]) {
+      return "wantToRead"
+    } else if (this.state.read[book.id]) {
+      return "read"
+    }
+    return "none"
+  }
+
+  // place a book on a shelf or remove it based on the selected option
+  setShelf = (book, option) => {
+    console.log(book)
+    console.log(option)
+    var currentShelf = this.getShelf(book.id)
+    if (option === currentShelf) return
+    // book is removed from its shelf
+    this.removeBook(book)
+    // if a shelf is provided (0 means none) then add it to the end of the list
+    if (option === "currentlyReading") {
+      console.log("first option")
+      this.setState({currentlyReading: {[book.id]: true}})
+    } else if (option === "wantToRead") {
+      this.setState({wantToRead: {[book.id]: true}})
+    } else if (option === "read") {
+      this.setState({read: {[book.id]: true}})
+    }
+    // book is added back at the end of the array, unless it was removed
+    if (option !== "none") {
+      this.setState((oldState) => ({allBooks: oldState.allBooks.concat([book])}))
+      console.log(this.state)
+    }
+  }
+
+  // removes book from all shelves as well as the array of books
+  removeBook = (book) => {
+    this.setState({currentlyReading: {[book.id]: undefined}})
+    this.setState({wantToRead: {[book.id]: undefined}})
+    this.setState({read: {[book.id]: undefined}})
+    this.setState((oldState) => ({allBooks: oldState.allBooks.filter((shelfBook) => (shelfBook.id !== book.id))}))
+    console.log(this.state.allBooks.map((book) => (book.id)))
+  }
+
   render() {
+    const { currentlyReading, wantToRead, read, allBooks } = this.state
+
     return (
       <div className="app">
         {this.state.showSearchPage ? (
@@ -56,7 +104,7 @@ class BooksApp extends React.Component {
             <div className="search-books-results">
               <ol className="books-grid">
                 {this.state.searchResults.map((book) => (
-                  <Book book={book} />
+                  <Book book={book} setShelf={this.setShelf} />
                 ))}
               </ol>
             </div>
@@ -67,9 +115,42 @@ class BooksApp extends React.Component {
               <h1>MyReads</h1>
             </div>
             <div className="list-books-content">
-              <Bookshelf title="Currently Reading" books={this.state.currentlyReading} />
-              <Bookshelf title="Want to Read" books={this.state.wantToRead} />
-              <Bookshelf title="Read" books={this.state.read} />
+              <div className="bookshelf">
+                <h2 className="bookshelf-title">Currently Reading</h2>
+                <div className="bookshelf-books">
+                  <ol className="books-grid">
+                    {allBooks.filter((book) => (
+                      this.state.currentlyReading[book.id]
+                    )).map((book) => (
+                      <Book book={book} setShelf={this.setShelf} />
+                    ))}
+                  </ol>
+                </div>
+              </div>
+              <div className="bookshelf">
+                <h2 className="bookshelf-title">Want to Read</h2>
+                <div className="bookshelf-books">
+                  <ol className="books-grid">
+                    {allBooks.filter((book) => (
+                      this.state.wantToRead[book.id]
+                    )).map((book) => (
+                      <Book book={book} setShelf={this.setShelf} />
+                    ))}
+                  </ol>
+                </div>
+              </div>
+              <div className="bookshelf">
+                <h2 className="bookshelf-title">Read</h2>
+                <div className="bookshelf-books">
+                  <ol className="books-grid">
+                    {allBooks.filter((book) => (
+                      this.state.read[book.id]
+                    )).map((book) => (
+                      <Book book={book} setShelf={this.setShelf} />
+                    ))}
+                  </ol>
+                </div>
+              </div>
             </div>
             <div className="open-search">
               <a onClick={() => this.setState({ showSearchPage: true })}>Add a book</a>
