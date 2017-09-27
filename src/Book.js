@@ -5,14 +5,21 @@ class Book extends Component {
 
   static propTypes = {
     book: PropTypes.object.isRequired,
-    setShelf: PropTypes.func.isRequired
+    setShelf: PropTypes.func.isRequired,
+    selected: PropTypes.string
   }
 
   constructor(props) {
     super(props)
 
+    // default value if no selected state is passed in
+    var selected = "none"
+    if (props.selected) {
+      selected = props.selected
+    }
+
     this.state = {
-      selected: "none"
+      selected: selected
     }
   }
 

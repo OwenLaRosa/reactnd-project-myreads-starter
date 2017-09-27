@@ -122,7 +122,7 @@ class BooksApp extends React.Component {
                     {allBooks.filter((book) => (
                       this.state.currentlyReading[book.id]
                     )).map((book) => (
-                      <Book book={book} setShelf={this.setShelf} />
+                      <Book book={book} setShelf={this.setShelf} selected="currentlyReading" />
                     ))}
                   </ol>
                 </div>
@@ -134,7 +134,7 @@ class BooksApp extends React.Component {
                     {allBooks.filter((book) => (
                       this.state.wantToRead[book.id]
                     )).map((book) => (
-                      <Book book={book} setShelf={this.setShelf} />
+                      <Book book={book} setShelf={this.setShelf} selected="wantToRead" />
                     ))}
                   </ol>
                 </div>
@@ -146,7 +146,7 @@ class BooksApp extends React.Component {
                     {allBooks.filter((book) => (
                       this.state.read[book.id]
                     )).map((book) => (
-                      <Book book={book} setShelf={this.setShelf} />
+                      <Book book={book} setShelf={this.setShelf} selected="read" />
                     ))}
                   </ol>
                 </div>
