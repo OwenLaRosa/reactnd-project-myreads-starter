@@ -105,7 +105,7 @@ class BooksApp extends React.Component {
             <div className="search-books-results">
               <ol className="books-grid">
                 {this.state.searchResults.map((book) => (
-                  <Book book={book} setShelf={this.setShelf} />
+                  <Book book={book} setShelf={this.setShelf} selected={this.getShelf(book.id)}/>
                 ))}
               </ol>
             </div>
