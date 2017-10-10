@@ -21,6 +21,8 @@ class Book extends Component {
     this.state = {
       selected: selected
     }
+
+    console.log(props.book.imageLinks);
   }
 
   onSelectionChanged = (event) => {
@@ -33,11 +35,18 @@ class Book extends Component {
     const { book } = this.props
     const { selected } = this.state
 
+    // some URLs don't have imageLinks, which can cause an error
+    // these books should just be rendered with a placeholder
+    var imageUrl = "";
+    if (book.imageLinks) {
+      imageUrl = book.imageLinks.smallThumbnail;
+    }
+
     return (
       <li>
         <div className="book">
           <div className="book-top">
-            <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${book.imageLinks.smallThumbnail})` }}></div>
+            <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${imageUrl})` }}></div>
             <div className="book-shelf-changer">
               <select value={selected} onChange={this.onSelectionChanged}>
                 <option value="none" disabled>Move to...</option>
