@@ -33,12 +33,12 @@ class BooksApp extends React.Component {
   }
 
   // get the shelf ID (or 0 if not on any) for this book
-  getShelf = (book) => {
-    if (this.state.currentlyReading[book.id]) {
+  getShelf = (id) => {
+    if (this.state.currentlyReading[id]) {
       return "currentlyReading"
-    } else if (this.state.wantToRead[book.id]) {
+    } else if (this.state.wantToRead[id]) {
       return "wantToRead"
-    } else if (this.state.read[book.id]) {
+    } else if (this.state.read[id]) {
       return "read"
     }
     return "none"
@@ -66,6 +66,7 @@ class BooksApp extends React.Component {
       this.setState((oldState) => ({allBooks: oldState.allBooks.concat([book])}))
       console.log(this.state)
     }
+    console.log(this.state);
   }
 
   // removes book from all shelves as well as the array of books
