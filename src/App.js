@@ -55,11 +55,11 @@ class BooksApp extends React.Component {
     // if a shelf is provided (0 means none) then add it to the end of the list
     if (option === "currentlyReading") {
       console.log("first option")
-      this.setState({currentlyReading: {[book.id]: true}})
+      this.setState({currentlyReading: Object.assign(this.state.currentlyReading, {[book.id]: true})})
     } else if (option === "wantToRead") {
-      this.setState({wantToRead: {[book.id]: true}})
+      this.setState({wantToRead: Object.assign(this.state.wantToRead, {[book.id]: true})})
     } else if (option === "read") {
-      this.setState({read: {[book.id]: true}})
+      this.setState({read: Object.assign(this.state.read, {[book.id]: true})})
     }
     // book is added back at the end of the array, unless it was removed
     if (option !== "none") {
@@ -71,9 +71,9 @@ class BooksApp extends React.Component {
 
   // removes book from all shelves as well as the array of books
   removeBook = (book) => {
-    this.setState({currentlyReading: {[book.id]: undefined}})
-    this.setState({wantToRead: {[book.id]: undefined}})
-    this.setState({read: {[book.id]: undefined}})
+    this.setState({currentlyReading: Object.assign(this.state.currentlyReading, {[book.id]: undefined})})
+    this.setState({wantToRead: Object.assign(this.state.wantToRead, {[book.id]: undefined})})
+    this.setState({read: Object.assign(this.state.read, {[book.id]: undefined})})
     this.setState((oldState) => ({allBooks: oldState.allBooks.filter((shelfBook) => (shelfBook.id !== book.id))}))
     console.log(this.state.allBooks.map((book) => (book.id)))
   }
