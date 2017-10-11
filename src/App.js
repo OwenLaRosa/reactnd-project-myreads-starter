@@ -21,6 +21,14 @@ class BooksApp extends React.Component {
     searchResults: []
   }
 
+  componentDidMount() {
+    BooksAPI.getAll().then((results) => {
+      results.forEach((book) => (
+        this.setShelf(book, book.shelf)
+      ))
+    })
+  }
+
   performSearch = (query) => {
     this.setState({searchQuery: query.trim()});
     if (query !== "") {
