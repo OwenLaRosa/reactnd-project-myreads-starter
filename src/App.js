@@ -69,6 +69,7 @@ class BooksApp extends React.Component {
     } else if (option === "read") {
       this.setState({read: Object.assign(this.state.read, {[book.id]: true})})
     }
+    BooksAPI.update(book, option)
     // book is added back at the end of the array, unless it was removed
     if (option !== "none") {
       this.setState((oldState) => ({allBooks: oldState.allBooks.concat([book])}))
