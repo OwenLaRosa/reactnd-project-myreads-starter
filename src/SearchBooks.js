@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import Book from './Book.js'
 import * as BooksAPI from './BooksAPI'
 import PropTypes from 'prop-types'
-import { Link } from 'react-router-dom'
 
 class SearchBooks extends Component {
 
@@ -53,7 +52,7 @@ class SearchBooks extends Component {
         <div className="search-books-results">
           <ol className="books-grid">
             {searchResults.map((book) => (
-              <Book book={book} setShelf={setShelf} selected={getShelf(book.id)}/>
+              <Book key={book.id} book={book} setShelf={setShelf} selected={getShelf(book.id)}/>
             ))}
           </ol>
         </div>
