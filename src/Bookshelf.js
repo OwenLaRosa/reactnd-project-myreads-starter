@@ -7,7 +7,8 @@ class Bookshelf extends Component {
   static PropTypes = {
     title: PropTypes.string.isRequired,
     books: PropTypes.array.isRequired,
-    setShelf: PropTypes.func.isRequired
+    setShelf: PropTypes.func.isRequired,
+    defaultSelection: PropTypes.string.isRequired
   }
 
   render() {
@@ -17,7 +18,7 @@ class Bookshelf extends Component {
         <div className="bookshelf-books">
           <ol className="books-grid">
             {this.props.books.map((book) => (
-              <Book book={book} setShelf={this.props.setShelf} />
+              <Book key={book.id} book={book} setShelf={this.props.setShelf} selected={this.props.defaultSelection} />
             ))}
           </ol>
         </div>

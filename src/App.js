@@ -88,42 +88,18 @@ class BooksApp extends React.Component {
               <h1>MyReads</h1>
             </div>
             <div className="list-books-content">
-              <div className="bookshelf">
-                <h2 className="bookshelf-title">Currently Reading</h2>
-                <div className="bookshelf-books">
-                  <ol className="books-grid">
-                    {allBooks.filter((book) => (
-                      this.state.currentlyReading[book.id]
-                    )).map((book) => (
-                      <Book key={book.id} book={book} setShelf={this.setShelf} selected="currentlyReading" />
-                    ))}
-                  </ol>
-                </div>
-              </div>
-              <div className="bookshelf">
-                <h2 className="bookshelf-title">Want to Read</h2>
-                <div className="bookshelf-books">
-                  <ol className="books-grid">
-                    {allBooks.filter((book) => (
-                      this.state.wantToRead[book.id]
-                    )).map((book) => (
-                      <Book key={book.id} book={book} setShelf={this.setShelf} selected="wantToRead" />
-                    ))}
-                  </ol>
-                </div>
-              </div>
-              <div className="bookshelf">
-                <h2 className="bookshelf-title">Read</h2>
-                <div className="bookshelf-books">
-                  <ol className="books-grid">
-                    {allBooks.filter((book) => (
-                      this.state.read[book.id]
-                    )).map((book) => (
-                      <Book key={book.id} book={book} setShelf={this.setShelf} selected="read" />
-                    ))}
-                  </ol>
-                </div>
-              </div>
+              <Bookshelf title="Currently Reading"
+                books={allBooks.filter((book) => (this.state.currentlyReading[book.id]))}
+                setShelf={this.setShelf}
+                defaultSelection="currentlyReading"/>
+              <Bookshelf title="Want to Read"
+                books={allBooks.filter((book) => (this.state.wantToRead[book.id]))}
+                setShelf={this.setShelf}
+                defaultSelection="wantToRead"/>
+              <Bookshelf title="Read"
+                books={allBooks.filter((book) => (this.state.read[book.id]))}
+                setShelf={this.setShelf}
+                defaultSelection="read"/>
             </div>
             <div className="open-search">
               <Link to="/search">Add a book</Link>
