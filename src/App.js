@@ -43,15 +43,12 @@ class BooksApp extends React.Component {
 
   // place a book on a shelf or remove it based on the selected option
   setShelf = (book, option) => {
-    console.log(book)
-    console.log(option)
     var currentShelf = this.getShelf(book.id)
     if (option === currentShelf) return
     // book is removed from its shelf
     this.removeBook(book)
     // if a shelf is provided (0 means none) then add it to the end of the list
     if (option === "currentlyReading") {
-      console.log("first option")
       this.setState({currentlyReading: Object.assign(this.state.currentlyReading, {[book.id]: true})})
     } else if (option === "wantToRead") {
       this.setState({wantToRead: Object.assign(this.state.wantToRead, {[book.id]: true})})
@@ -62,9 +59,7 @@ class BooksApp extends React.Component {
     // book is added back at the end of the array, unless it was removed
     if (option !== "none") {
       this.setState((oldState) => ({allBooks: oldState.allBooks.concat([book])}))
-      console.log(this.state)
     }
-    console.log(this.state);
   }
 
   // removes book from all shelves as well as the array of books
@@ -73,7 +68,6 @@ class BooksApp extends React.Component {
     this.setState({wantToRead: Object.assign(this.state.wantToRead, {[book.id]: undefined})})
     this.setState({read: Object.assign(this.state.read, {[book.id]: undefined})})
     this.setState((oldState) => ({allBooks: oldState.allBooks.filter((shelfBook) => (shelfBook.id !== book.id))}))
-    console.log(this.state.allBooks.map((book) => (book.id)))
   }
 
   render() {

@@ -21,12 +21,9 @@ class Book extends Component {
     this.state = {
       selected: selected
     }
-
-    console.log(props.book.imageLinks);
   }
 
   onSelectionChanged = (event) => {
-    console.log(event.target.value)
     this.setState({selected: event.target.value})
     this.props.setShelf(this.props.book, event.target.value)
   }
