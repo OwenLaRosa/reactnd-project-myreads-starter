@@ -1,5 +1,4 @@
 import React from 'react'
-import Book from './Book'
 import Bookshelf from './Bookshelf'
 import SearchBooks from './SearchBooks'
 import { Link, Route } from 'react-router-dom'
